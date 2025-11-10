@@ -1,3 +1,5 @@
+from typing import Optional
+
 from google import adk
 from google.adk.tools.transfer_to_agent_tool import transfer_to_agent
 
@@ -12,9 +14,9 @@ activities_agent = getattr(activities_agent_module, "activities_agent", None)
 
 def find_flights(
     *,
-    destination: str | None = None,
-    dates: str | None = None,
-    budget: float | None = None,
+    destination: Optional[str] = None,
+    dates: Optional[str] = None,
+    budget: Optional[float] = None,
     tool_context=None,
 ):
     """Tool entrypoint exposed to the model as `find_flights`.
@@ -42,6 +44,10 @@ root_agent = adk.Agent(
     description="Coordinates travel planning by calling flight, stay, and activity agents.",
     instruction=(
         "You are an agent responsible for orchestrating trip planning tasks. "
-        "You call external agents to gather flights, stays, and activities, then return a final result."
+        "When the user asks about travel plans, use the transfer_to_agent tool to delegate to the appropriate specialized agent:\n"
+        "- Use 'FlightFinder' agent for flight searches and bookings\n"
+        "- Use 'HotelRecommender' agent for hotel and accommodation suggestions\n"
+        "- Use 'ActivitiesAgent' agent for activity and tourist attraction recommendations\n"
+        "Gather information from the relevant agents and compile a comprehensive travel plan for the user."
     ),
 )
