@@ -14,26 +14,26 @@ def search_google_hotels(
 ):
     """
     Search for hotels using Google Hotels API via SerpAPI.
-    
+
     Args:
         location: City or area to search for hotels (e.g., 'Paris, France', 'New York, NY')
         check_in_date: Check-in date in YYYY-MM-DD format
         check_out_date: Check-out date in YYYY-MM-DD format
         adults: Number of adults (default: 1)
         currency: Currency code (default: 'USD')
-    
+
     Returns:
         Hotel search results from Google Hotels
     """
     # Note: You need to set SERPAPI_KEY environment variable
     api_key = os.environ.get("SERPAPI_KEY", "")
-    
+
     if not api_key:
         return {
             "error": "SERPAPI_KEY not set. Please set your SerpAPI key as an environment variable.",
-            "instructions": "Get your API key from https://serpapi.com/"
+            "instructions": "Get your API key from https://serpapi.com/",
         }
-    
+
     params = {
         "engine": "google_hotels",
         "q": location,
@@ -42,14 +42,14 @@ def search_google_hotels(
         "adults": adults,
         "currency": currency,
         "hl": "en",
-        "api_key": api_key
+        "api_key": api_key,
     }
-    
+
     try:
         response = requests.get("https://serpapi.com/search", params=params, timeout=30)
         response.raise_for_status()
         data = response.json()
-        
+
         # Extract relevant hotel information
         if "properties" in data:
             hotels = data.get("properties", [])[:10]  # Get top 10 hotels
@@ -59,19 +59,14 @@ def search_google_hotels(
                     "location": location,
                     "check_in_date": check_in_date,
                     "check_out_date": check_out_date,
-                    "adults": adults
-                }
+                    "adults": adults,
+                },
             }
             return result
         else:
-            return {
-                "message": "No hotels found",
-                "raw_response": data
-            }
+            return {"message": "No hotels found", "raw_response": data}
     except requests.exceptions.RequestException as e:
-        return {
-            "error": f"Failed to fetch hotel data: {str(e)}"
-        }
+        return {"error": f"Failed to fetch hotel data: {str(e)}"}
 
 
 hotel_agent = adk.Agent(
