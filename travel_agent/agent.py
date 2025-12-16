@@ -1,4 +1,8 @@
 from typing import Optional
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 from google import adk
 from google.adk.tools.transfer_to_agent_tool import transfer_to_agent
@@ -35,7 +39,7 @@ def find_flights(
 
 root_agent = adk.Agent(
     name="RootAgent",
-    model="gemini-2.5-pro",
+    model="gemini-2.5-flash",
     sub_agents=[
         a for a in (flight_agent, hotel_agent, activities_agent) if a is not None
     ],

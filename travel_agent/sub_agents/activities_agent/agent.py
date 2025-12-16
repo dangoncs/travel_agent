@@ -108,7 +108,7 @@ def search_google_maps_places(
 
 activities_agent = adk.Agent(
     name="ActivitiesAgent",
-    model="gemini-2.5-pro",
+    model="gemini-2.5-flash",
     tools=[search_google_maps_places],
     description="Suggests interesting activities for the user at a destination using Google Maps API.",
     instruction=(

@@ -76,7 +76,7 @@ def search_google_hotels(
 
 hotel_agent = adk.Agent(
     name="HotelRecommender",
-    model="gemini-2.5-pro",
+    model="gemini-2.5-flash",
     tools=[search_google_hotels],
     description="Suggests hotel or stay options for a destination using Google Hotels API.",
     instruction=(
