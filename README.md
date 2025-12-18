@@ -2,6 +2,10 @@
 
 This is an agent developed using Google ADK that coordinates sub-agents for flights, hotels, and activities.
 
+## Demo
+
+https://github.com/user-attachments/assets/b33a9359-8730-4407-b406-314cb74d19c5
+
 ## Features
 
 - **Flight Search**: Real-time flight search using Google Flights API via SerpAPI
